@@ -8,6 +8,7 @@ import fs from "fs";
 import swaggerUi from "swagger-ui-express";
 import usersRoutes from './routers/usersRoutes';
 // Agregar: import ... from ...
+import categoriesRoutes from './routers/categoriesRoutes'
 import orderItemsRoutes from "./routers/orderItemsRoutes";
 
 dotenv.config();
@@ -25,6 +26,7 @@ app.use(express.json());
 app.use(requestLogger);
 app.use('/api/users', usersRoutes);
 // Agregar: app.use...
+app.use("/api/categories", categoriesRoutes);
 app.use("/api/orderItems", orderItemsRoutes)
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
