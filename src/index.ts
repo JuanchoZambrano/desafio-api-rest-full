@@ -8,6 +8,7 @@ juan
 */
 
 //ejemplo: import orderItemsRoutes from './routers/orderItemRoutes'
+import categoriesRoutes from './routers/categoriesRoutes'
 
 const router = Router();
 
@@ -21,5 +22,5 @@ juan
 */
 
 //ejemplo: router.use("orderItems", orderItemsRoutes);
-
+router.use("/categories", categoriesRoutes);
 export default router;

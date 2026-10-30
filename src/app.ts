@@ -7,6 +7,7 @@ import path from "path";
 import fs from "fs";
 import swaggerUi from "swagger-ui-express";
 // Agregar: import ... from ...
+import categoriesRoutes from './routers/categoriesRoutes'
 
 
 const swaggerDocument = JSON.parse(
@@ -22,7 +23,7 @@ app.use(express.json());
 app.use(requestLogger);
 
 // Agregar: app.use...
-
+app.use("/api/categories", categoriesRoutes);
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
