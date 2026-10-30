@@ -2,7 +2,7 @@
 // branch feature/swagger-setup-categorias
 // branch feature/middlewares-categorias
 import { Router, type Request, type Response } from 'express';
-import { listarCategorias, obtenerCategoriaPorId, crearCategoria, actualizarCategoria, eliminarCategoriaPermanente} from '../controllers/categoriesControllers'
+import { listarCategorias, obtenerCategoriaPorId, crearCategoria, actualizarCategoria, eliminarCategoriaPermanente } from '../controllers/categoriesControllers'
 const router: Router = Router();
 
 // GET /api/categorias - Listar todas las categorías
