@@ -11,9 +11,12 @@
     "http"
   ],
   "paths": {
-    "/products/": {
+    "/orderItems/": {
       "get": {
-        "description": "",
+        "tags": [
+          "Order Items"
+        ],
+        "description": "Endpoint para obtener todos los Order Items",
         "responses": {
           "200": {
             "description": "OK"
@@ -21,25 +24,39 @@
         }
       },
       "post": {
-        "description": "",
+        "tags": [
+          "Order Items"
+        ],
+        "description": "Endpoint para crear una nueva Order Item",
         "parameters": [
           {
-            "name": "body",
+            "name": "x-api-key",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "nuevoOrderItem",
             "in": "body",
+            "description": "Información de la order item",
+            "required": true,
             "schema": {
               "type": "object",
               "properties": {
-                "name": {
-                  "example": "any"
+                "orderId": {
+                  "type": "number",
+                  "example": 1
                 },
-                "price": {
-                  "example": "any"
+                "productId": {
+                  "type": "number",
+                  "example": 1
                 },
-                "stock": {
-                  "example": "any"
+                "quantity": {
+                  "type": "number",
+                  "example": 2
                 },
-                "categoryId": {
-                  "example": "any"
+                "subtotal": {
+                  "type": "number",
+                  "example": 12.99
                 }
               }
             }
@@ -51,19 +68,32 @@
           },
           "400": {
             "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
-        }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
       }
     },
-    "/products/{id}": {
+    "/orderItems/{id}": {
       "get": {
-        "description": "",
+        "tags": [
+          "Order Items"
+        ],
+        "description": "Endpoint para obtener una order item en especifico por su ID",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "ID de postgresql o identificador único del order item",
+            "example": "12"
           }
         ],
         "responses": {
@@ -76,7 +106,10 @@
         }
       },
       "put": {
-        "description": "",
+        "tags": [
+          "Order Items"
+        ],
+        "description": "Endpoint para actualizar datos de un order item existente",
         "parameters": [
           {
             "name": "id",
@@ -85,21 +118,26 @@
             "type": "string"
           },
           {
+            "name": "x-api-key",
+            "in": "header",
+            "type": "string"
+          },
+          {
             "name": "body",
             "in": "body",
             "schema": {
               "type": "object",
               "properties": {
-                "name": {
+                "orderId": {
                   "example": "any"
                 },
-                "price": {
+                "productId": {
                   "example": "any"
                 },
-                "stock": {
+                "quantity": {
                   "example": "any"
                 },
-                "categoryId": {
+                "subtotal": {
                   "example": "any"
                 }
               }
@@ -113,18 +151,34 @@
           "400": {
             "description": "Bad Request"
           },
+          "401": {
+            "description": "Unauthorized"
+          },
           "404": {
             "description": "Not Found"
           }
-        }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
       },
       "delete": {
-        "description": "",
+        "tags": [
+          "Order Items"
+        ],
+        "description": "Endpoint para eliminar de manera fisica un order item por su ID",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
+            "type": "string"
+          },
+          {
+            "name": "x-api-key",
+            "in": "header",
             "type": "string"
           }
         ],
@@ -132,11 +186,20 @@
           "200": {
             "description": "OK"
           },
+          "401": {
+            "description": "Unauthorized"
+          },
           "404": {
             "description": "Not Found"
           }
-        }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
       }
     }
   }
+  "paths": {}
 }

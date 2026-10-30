@@ -6,9 +6,13 @@ import { requestLogger } from "./middlewares/request-logger";
 import path from "path";
 import fs from "fs";
 import swaggerUi from "swagger-ui-express";
+import usersRoutes from './routers/usersRoutes';
 // Agregar: import ... from ...
+import categoriesRoutes from './routers/categoriesRoutes';
+import productsRoutes from './routers/productsRoutes';
+import orderItemsRoutes from "./routers/orderItemsRoutes";
 
-import router from "./index";
+dotenv.config();
 
 const swaggerDocument = JSON.parse(
   fs.readFileSync(path.join(__dirname, "./swagger_output.json"), "utf8"),
@@ -21,9 +25,12 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(requestLogger);
-
+app.use('/api/users', usersRoutes);
 // Agregar: app.use...
-app.use("/api", router);
+app.use("/api/products", productsRoutes);
+app.use("/api/categories", categoriesRoutes);
+app.use("/api/orderItems", orderItemsRoutes);
+
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
