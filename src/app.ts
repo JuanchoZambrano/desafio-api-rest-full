@@ -6,6 +6,7 @@ import { requestLogger } from "./middlewares/request-logger";
 import path from "path";
 import fs from "fs";
 import swaggerUi from "swagger-ui-express";
+import usersRoutes from './routers/usersRoutes';
 // Agregar: import ... from ...
 import orderItemsRoutes from "./routers/orderItemsRoutes";
 
@@ -22,7 +23,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(requestLogger);
-
+app.use('/api/users', usersRoutes);
 // Agregar: app.use...
 app.use("/api/orderItems", orderItemsRoutes)
 
