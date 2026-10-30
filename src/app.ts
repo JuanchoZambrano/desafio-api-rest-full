@@ -8,6 +8,7 @@ import fs from "fs";
 import swaggerUi from "swagger-ui-express";
 // Agregar: import ... from ...
 
+import router from "./index";
 
 const swaggerDocument = JSON.parse(
   fs.readFileSync(path.join(__dirname, "./swagger_output.json"), "utf8"),
@@ -22,7 +23,7 @@ app.use(express.json());
 app.use(requestLogger);
 
 // Agregar: app.use...
-
+app.use("/api", router);
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
