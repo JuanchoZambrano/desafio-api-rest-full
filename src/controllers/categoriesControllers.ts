@@ -26,12 +26,25 @@ export const listarCategorias = (req: Request, res: Response) => {
             description: 'Lista de categorías',
             schema: [{ id: 1, name: "Libros", description: ""}]
         }
+        #swagger.responses[404] = {
+            description: 'Categoría no encontrada',
+            schema: { error: 'Categoría no encontrada' }
+        }
+        #swagger.responses[500] = {
+            description: 'Error interno del servidor',
+            schema: { error: 'Error interno del servidor' }
+        }
     */
-    if (categorias.length === 0) {
-        return res.status(404).json({ error: 'Categoría no encontrada' });
+    try {
+        if (categorias.length <= 0) {
+            return res.status(404).json({ error: 'Categoría no encontrada' });
+        }
+        res.status(200).json(categorias);
+    } catch (error) {
+        res.status(500).json({ error: 'Error interno del servidor' });
     }
-    res.status(200).json(categorias);
 }
+
 export const obtenerCategoriaPorId = (req: Request, res: Response) => {
     /*
         #swagger.tags = ['Categorías']
@@ -39,7 +52,7 @@ export const obtenerCategoriaPorId = (req: Request, res: Response) => {
         #swagger.parameters['id'] = { in: 'path', description: 'ID de la categoría', required: true, type: 'integer' }
         #swagger.responses[200] = { description: 'Categoría encontrada', schema: { id: 1, name: "Libros" } }
         #swagger.responses[404] = { description: 'Categoría no encontrada', schema: { error: 'Categoría no encontrada' } }
-        #swagger.responses[400] = { description: 'El ID debe ser un número entero positivo' }
+        #swagger.responses[400] = { description: 'El ID debe ser un número entero positivo', schema: { error: 'El ID debe ser un número entero positivo' } }
         #swagger.responses[500] = { description: 'Error interno del servidor', schema: { error: 'Error interno del servidor' } }
     */
     try {
@@ -71,9 +84,9 @@ export const crearCategoria = (req: Request, res: Response) => {
             schema: { name: "Libros", description: "Libros" }
         }
         #swagger.responses[201] = { description: 'Categoría creada', schema: { id: 4, name: "Libros", description: "Libros" } }
-        #swagger.responses[400] = { description: 'El ID debe ser un número entero positivo' }
-        #swagger.responses[422] = { description: 'El campo 'nombre' o 'descripción' es obligatorio' }
-        #swagger.responses[500] = { description: 'Error interno del servidor', schema: { error: 'Error interno del servidor' } }
+        #swagger.responses[400] = { description: 'El ID debe ser un número entero positivo', schema: { error: 'El ID debe ser un número entero positivo' } }
+        #swagger.responses[422] = { description: 'El campo "nombre" o "descripción" es obligatorio', schema: { error: 'El campo "nombre" o "descripción" es obligatorio' } }
+        #swagger.responses[500] = { description: 'Error interno del servidor', schema: { error: 'Error interno del servidor' }, schema: { error: 'Error interno del servidor' } }
     */
     try {
         const name = requeridoString(req.body.name, "nombre");
@@ -104,9 +117,9 @@ export const actualizarCategoria = (req: Request, res: Response) => {
         #swagger.parameters['id'] = { in: 'path', description: 'ID de la categoría', required: true, type: 'integer' }
         #swagger.parameters['body'] = { in: 'body', description: 'Nuevos datos de la categoría', required: true, schema: { name: "Libros", description: "Libros" } }
         #swagger.responses[200] = { description: 'Categoría actualizada', schema: { id: 1, name: "Libros", description: "Libros" } }
-        #swagger.responses[404] = { description: 'Categoría no encontrada' }
-        #swagger.responses[400] = { description: 'El ID debe ser un número entero positivo' }
-        #swagger.responses[422] = { description: 'El campo "nombre" o "descripción" es obligatorio' }
+        #swagger.responses[404] = { description: 'Categoría no encontrada', schema: { error: 'Categoría no encontrada' } }
+        #swagger.responses[400] = { description: 'El ID debe ser un número entero positivo', schema: { error: 'El ID debe ser un número entero positivo' } }
+        #swagger.responses[422] = { description: 'El campo "nombre" o "descripción" es obligatorio', schema: { error: 'El campo "nombre" o "descripción" es obligatorio' } }
         #swagger.responses[500] = { description: 'Error interno del servidor', schema: { error: 'Error interno del servidor' } }
     */
     try {
@@ -138,9 +151,9 @@ export const eliminarCategoriaPermanente = (req: Request, res: Response) => {
         #swagger.tags = ['Categorías']
         #swagger.summary = 'Eliminar categoría'
         #swagger.parameters['id'] = { in: 'path', description: 'ID de la categoría', required: true, type: 'integer' }
-        #swagger.responses[200] = { description: 'Categoría eliminada' }
-        #swagger.responses[404] = { description: 'Categoría no encontrada' }
-        #swagger.responses[400] = { description: 'El ID debe ser un número entero positivo' }
+        #swagger.responses[200] = { description: 'Categoría eliminada', schema: { message: 'Categoría eliminada' } }
+        #swagger.responses[404] = { description: 'Categoría no encontrada', schema: { error: 'Categoría no encontrada' } }
+        #swagger.responses[400] = { description: 'El ID debe ser un número entero positivo', schema: { error: 'El ID debe ser un número entero positivo' } }
         #swagger.responses[500] = { description: 'Error interno del servidor', schema: { error: 'Error interno del servidor' } }
     */
     try {
