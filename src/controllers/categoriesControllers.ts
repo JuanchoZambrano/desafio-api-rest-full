@@ -1,24 +1,8 @@
-import { Request, Response } from "express"
+import { Request, Response, NextFunction } from "express"
 import { type Categoria, categorias, generarId } from '../data/categoriesData'
+import { idDeRuta, requeridoString } from '../middlewares/categoriesMiddlware'
 
-// validadId para un put y delete Number
-function idDeRuta(param: string | string[] | undefined): number {
-    const valor = Array.isArray(param) ? param[0] : param
-    const id = Number(valor)
-    if (isNaN(id) || id <= 0) {
-        throw new Error('El ID debe ser un número entero positivo')
-    }
-    return id
-}
-
-function requeridoString(valor: unknown, campo: string): string {
-    if (valor === undefined || valor === null || valor === '') {
-        throw new Error(`El campo '${campo}' es obligatorio`)
-    }
-    return String(valor)
-}
-
-export const listarCategorias = (req: Request, res: Response) => {
+export const listarCategorias = (req: Request, res: Response, next: NextFunction) => {
     /*
         #swagger.tags = ['Categorías']
         #swagger.summary = 'Listar categorías'
@@ -41,11 +25,11 @@ export const listarCategorias = (req: Request, res: Response) => {
         }
         res.status(200).json(categorias);
     } catch (error) {
-        res.status(500).json({ error: 'Error interno del servidor' });
+        next(error);
     }
 }
 
-export const obtenerCategoriaPorId = (req: Request, res: Response) => {
+export const obtenerCategoriaPorId = (req: Request, res: Response, next: NextFunction) => {
     /*
         #swagger.tags = ['Categorías']
         #swagger.summary = 'Obtener categoría por ID'
@@ -63,17 +47,11 @@ export const obtenerCategoriaPorId = (req: Request, res: Response) => {
         }
         res.status(200).json(categorias[indice]);
     } catch (error) {
-        if (error instanceof Error) {
-            if (error.message === 'El ID debe ser un número entero positivo') {
-                res.status(400).json({ error: error.message });
-            }
-        } else {
-            res.status(500).json({ error: 'Error interno del servidor' });
-        }
+        next(error);
     }
 }
 
-export const crearCategoria = (req: Request, res: Response) => {
+export const crearCategoria = (req: Request, res: Response, next: NextFunction) => {
     /*
         #swagger.tags = ['Categorías']
         #swagger.summary = 'Crear categoría'
@@ -99,18 +77,10 @@ export const crearCategoria = (req: Request, res: Response) => {
         categorias.push(nuevaCategoria);
         res.status(201).json(nuevaCategoria);
     } catch (error) {
-        if (error instanceof Error) {
-            if (error.message === 'El ID debe ser un número entero positivo') {
-                res.status(400).json({ error: error.message });
-            } else {
-                res.status(422).json({ error: error.message });
-            }
-        } else {
-            res.status(500).json({ error: 'Error interno del servidor' });
-        }
+        next(error);
     }
 }
-export const actualizarCategoria = (req: Request, res: Response) => {
+export const actualizarCategoria = (req: Request, res: Response, next: NextFunction) => {
     /*
         #swagger.tags = ['Categorías']
         #swagger.summary = 'Actualizar categoría'
@@ -134,19 +104,10 @@ export const actualizarCategoria = (req: Request, res: Response) => {
         categoria.description = description;
         res.status(200).json(categoria);
     } catch (error) {
-
-        if (error instanceof Error) {
-            if (error.message === 'El ID debe ser un número entero positivo') {
-                res.status(400).json({ error: error.message });
-            } else {
-                res.status(422).json({ error: error.message });
-            }
-        } else {
-            res.status(500).json({ error: 'Error interno del servidor' });
-        }
+        next(error);
     }
 }
-export const eliminarCategoriaPermanente = (req: Request, res: Response) => {
+export const eliminarCategoriaPermanente = (req: Request, res: Response, next: NextFunction) => {
     /*
         #swagger.tags = ['Categorías']
         #swagger.summary = 'Eliminar categoría'
@@ -166,12 +127,6 @@ export const eliminarCategoriaPermanente = (req: Request, res: Response) => {
         categorias.splice(indice, 1);
         res.status(200).json(categoria);
     } catch (error) {
-        if (error instanceof Error) {
-            if (error.message === 'El ID debe ser un número entero positivo') {
-                res.status(400).json({ error: error.message });
-            }
-        } else {
-            res.status(500).json({ error: 'Error interno del servidor' });
-        }
+        next(error);
     }
 }
