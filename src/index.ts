@@ -2,7 +2,8 @@ import { Router } from "express";
 /* 
 derlyz
 mike
-roberto
+roberto*/ import ordersRoutes from "./routers/ordersRoutes";
+/*
 ivan
 juan
 */
@@ -15,8 +16,8 @@ const router = Router();
 /* 
 derlyz
 mike
-roberto
-ivan
+roberto */ router.use("/orders", ordersRoutes);
+/*ivan
 juan
 */
 
