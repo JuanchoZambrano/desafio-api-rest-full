@@ -8,7 +8,9 @@ import fs from "fs";
 import swaggerUi from "swagger-ui-express";
 import usersRoutes from './routers/usersRoutes';
 // Agregar: import ... from ...
+import orderItemsRoutes from "./routers/orderItemsRoutes";
 
+dotenv.config();
 
 const swaggerDocument = JSON.parse(
   fs.readFileSync(path.join(__dirname, "./swagger_output.json"), "utf8"),
@@ -23,7 +25,7 @@ app.use(express.json());
 app.use(requestLogger);
 app.use('/api/users', usersRoutes);
 // Agregar: app.use...
-
+app.use("/api/orderItems", orderItemsRoutes)
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 

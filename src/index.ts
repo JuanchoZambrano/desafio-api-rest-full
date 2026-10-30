@@ -3,9 +3,8 @@ import { Router } from "express";
 derlyz
 mike
 roberto
-ivan
-juan
-*/
+ivan*/
+import orderItemsRoutes from "./routers/orderItemsRoutes";
 
 //ejemplo: import orderItemsRoutes from './routers/orderItemRoutes'
 
@@ -16,10 +15,9 @@ const router = Router();
 derlyz
 mike
 roberto
-ivan
-juan
-*/
+ivan*/
+router.use("/orderItems", orderItemsRoutes);
 
-//ejemplo: router.use("orderItems", orderItemsRoutes);
+//ejemplo: router.use("/orderItems", orderItemsRoutes);
 
 export default router;
