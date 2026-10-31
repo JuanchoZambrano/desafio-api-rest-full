@@ -1,4 +1,5 @@
 import { Router } from "express";
+import ordersRoutes from "./routers/ordersRoutes";
 import productsRoutes from "./routers/productsRoutes";
 import categoriesRoutes from './routers/categoriesRoutes';
 import orderItemsRoutes from "./routers/orderItemsRoutes";
@@ -10,6 +11,8 @@ const router = Router();
 router.use("/products", productsRoutes);
 router.use("/categories", categoriesRoutes);
 router.use("/orderItems", orderItemsRoutes);
+router.use("/orders", ordersRoutes);
+
 //ejemplo: router.use("orderItems", orderItemsRoutes);
 
 export default router;
