@@ -1,25 +1,17 @@
 import { Router } from "express";
-/* 
-derlyz
-mike
-roberto*/ import ordersRoutes from "./routers/ordersRoutes";
-/*
-ivan
-juan
-*/
-
+import ordersRoutes from "./routers/ordersRoutes";
+import productsRoutes from "./routers/productsRoutes";
+import categoriesRoutes from './routers/categoriesRoutes';
+import orderItemsRoutes from "./routers/orderItemsRoutes";
 //ejemplo: import orderItemsRoutes from './routers/orderItemRoutes'
 
 const router = Router();
 
 // importar routers de cada uno
-/* 
-derlyz
-mike
-roberto */ router.use("/orders", ordersRoutes);
-/*ivan
-juan
-*/
+router.use("/products", productsRoutes);
+router.use("/categories", categoriesRoutes);
+router.use("/orderItems", orderItemsRoutes);
+router.use("/orders", ordersRoutes);
 
 //ejemplo: router.use("orderItems", orderItemsRoutes);
 
